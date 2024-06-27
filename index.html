@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #F2F2F2;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>PRODUCT</th>
+            <th>PRICE</th>
+
+        </tr>
+        <tbody id="data">          
+        </tbody>
+    </table>
+    <button type="button" id="button">Data</button>
+    <script>
+        $(document).ready(function(){
+            $("#button").click(function()
+        {
+            $.ajax({
+                url:"https://fakestoreapi.com/products",
+                method:"GET",
+                success:function(data){
+                    var dataContainer = $("#data");
+                    dataContainer.empty();
+
+                    data.forEach(function(i){
+                        var row =`<tr>
+                            <td>${i.id}</td>
+                            <td>${i.title}</td>
+                            <td>${i.price}</td>
+                            <tr>`;
+                            dataContainer.append(row);
+                    });
+                },
+            });
+
+            });
+        });
+    </script>
+    
+</body>
+</html>
